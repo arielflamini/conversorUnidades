@@ -1,0 +1,443 @@
+diff --git a/eclipse-workspace/ConversorDivisas/.classpath b/eclipse-workspace/ConversorDivisas/.classpath
+new file mode 100644
+index 0000000..f029363
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/.classpath
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<classpath>
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-19">
++		<attributes>
++			<attribute name="module" value="true"/>
++		</attributes>
++	</classpathentry>
++	<classpathentry kind="src" path="src"/>
++	<classpathentry kind="output" path="bin"/>
++</classpath>
+diff --git a/eclipse-workspace/ConversorDivisas/.gitignore b/eclipse-workspace/ConversorDivisas/.gitignore
+new file mode 100644
+index 0000000..ae3c172
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/.gitignore
+@@ -0,0 +1 @@
++/bin/
+diff --git a/eclipse-workspace/ConversorDivisas/.project b/eclipse-workspace/ConversorDivisas/.project
+new file mode 100644
+index 0000000..90bf85d
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/.project
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<projectDescription>
++	<name>ConversorDivisas</name>
++	<comment></comment>
++	<projects>
++	</projects>
++	<buildSpec>
++		<buildCommand>
++			<name>org.eclipse.jdt.core.javabuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++	</buildSpec>
++	<natures>
++		<nature>org.eclipse.jdt.core.javanature</nature>
++	</natures>
++</projectDescription>
+diff --git a/eclipse-workspace/ConversorDivisas/.settings/org.eclipse.core.resources.prefs b/eclipse-workspace/ConversorDivisas/.settings/org.eclipse.core.resources.prefs
+new file mode 100644
+index 0000000..99f26c0
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/.settings/org.eclipse.core.resources.prefs
+@@ -0,0 +1,2 @@
++eclipse.preferences.version=1
++encoding/<project>=UTF-8
+diff --git a/eclipse-workspace/ConversorDivisas/.settings/org.eclipse.jdt.core.prefs b/eclipse-workspace/ConversorDivisas/.settings/org.eclipse.jdt.core.prefs
+new file mode 100644
+index 0000000..062ed70
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/.settings/org.eclipse.jdt.core.prefs
+@@ -0,0 +1,14 @@
++eclipse.preferences.version=1
++org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=19
++org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve
++org.eclipse.jdt.core.compiler.compliance=19
++org.eclipse.jdt.core.compiler.debug.lineNumber=generate
++org.eclipse.jdt.core.compiler.debug.localVariable=generate
++org.eclipse.jdt.core.compiler.debug.sourceFile=generate
++org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
++org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
++org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
++org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=warning
++org.eclipse.jdt.core.compiler.release=enabled
++org.eclipse.jdt.core.compiler.source=19
+diff --git a/eclipse-workspace/ConversorDivisas/src/Administrador.java b/eclipse-workspace/ConversorDivisas/src/Administrador.java
+new file mode 100644
+index 0000000..7736fc9
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Administrador.java
+@@ -0,0 +1,22 @@
++
++public class Administrador extends Usuario implements Autenticable {
++
++	private String clave = "admin1234";
++
++	@Override
++	public void setClave(String clave) {
++		this.setClave(clave);
++	}
++	
++	@Override
++	public boolean iniciarSesion(String clave) {
++		return this.clave.equals(clave);
++	}
++
++	@Override
++	public String getClave() {
++		// TODO Auto-generated method stub
++		return null;
++	}
++
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/Autenticable.java b/eclipse-workspace/ConversorDivisas/src/Autenticable.java
+new file mode 100644
+index 0000000..d3d6d5a
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Autenticable.java
+@@ -0,0 +1,9 @@
++
++public interface Autenticable{
++
++	public String getClave();
++
++	public void setClave(String clave);
++	
++	public boolean iniciarSesion(String clave);
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/Cliente.java b/eclipse-workspace/ConversorDivisas/src/Cliente.java
+new file mode 100644
+index 0000000..636a0bd
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Cliente.java
+@@ -0,0 +1,20 @@
++public class Cliente implements Autenticable{
++	
++	private String clave = "cliente1234";
++
++	@Override
++	public void setClave(String clave) {
++		this.setClave(clave);
++	}
++	
++	@Override
++	public boolean iniciarSesion(String clave) {
++		return this.clave.equals(clave);
++	}
++
++	@Override
++	public String getClave() {
++		// TODO Auto-generated method stub
++		return null;
++	}
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/ConvertirUnidad.java b/eclipse-workspace/ConversorDivisas/src/ConvertirUnidad.java
+new file mode 100644
+index 0000000..5ba36b2
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/ConvertirUnidad.java
+@@ -0,0 +1,38 @@
++import javax.swing.JOptionPane;
++
++public class ConvertirUnidad {
++	
++	public void mostrarUnidades() {
++		double calc1 = 0;
++		double calc2 = 0;
++		//creo las opciones a mostrar
++		String [] unidades = {"Divisas","Temperaturas","Longitudes"};
++		//muestro en una lista desplegable las opciones
++		Object opcion = JOptionPane.showInputDialog(null,"Selecciona un tipo de unidad", "Elegir",JOptionPane.QUESTION_MESSAGE,null,unidades, unidades[0]);
++		if(opcion == "Divisas") {
++			Divisa d = new Divisa();
++			String [] divisas = d.getDivisas();
++			double [] valores = d.getValores();
++			//muestro en una lista las opciones de divisas a elegir
++			Object divisa1 = JOptionPane.showInputDialog(null,"Convertir divisa de...", "Elegir",JOptionPane.QUESTION_MESSAGE,null,divisas, divisas[0]);
++			double valor = Double.valueOf(JOptionPane.showInputDialog("Ingrese la cantidad de "+divisa1+" que quieres convertir"));
++			Object divisa2 = JOptionPane.showInputDialog(null,"Convertir cantidad a...", "Elegir",JOptionPane.QUESTION_MESSAGE,null,divisas, divisas[0]);
++			for(int i = 0;i<divisas.length;i++) {
++				if(divisa1.equals(divisas[i])) {
++					calc1 = valores[i];
++				}
++			}
++			for(int j = 0;j<divisas.length;j++) {
++				if(divisa2.equals(divisas[j])) {
++					calc2 = valores[j];
++				}
++			}
++			JOptionPane . showMessageDialog ( null , "Usted tiene "+(valor*calc2)/calc1+" "+divisa2 );
++		}
++		}
++}
++	
++
++
++	
++
+diff --git a/eclipse-workspace/ConversorDivisas/src/CrearUnidad.java b/eclipse-workspace/ConversorDivisas/src/CrearUnidad.java
+new file mode 100644
+index 0000000..3eb85c5
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/CrearUnidad.java
+@@ -0,0 +1,13 @@
++import javax.swing.JOptionPane;
++
++public class CrearUnidad {
++
++	public static void main(String[] args) {
++		//creo las opciones a mostrar
++		String [] unidades = {"Divisas","Temperaturas","Longitudes"};
++		//muestro en una lista desplegable las opciones
++		Object opcion = JOptionPane.showInputDialog(null,"Selecciona un tipo de unidad", "Elegir",JOptionPane.QUESTION_MESSAGE,null,unidades, unidades[0]);
++
++	}
++
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/Divisa.java b/eclipse-workspace/ConversorDivisas/src/Divisa.java
+new file mode 100644
+index 0000000..8b30b2f
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Divisa.java
+@@ -0,0 +1,21 @@
++public class Divisa extends Unidad{
++	
++	private Pais pais;
++	
++	public Pais getPais() {
++		return pais;
++	}
++	public void setPais(Pais pais) {
++		this.pais = pais;
++	}
++	
++	public String [] getDivisas() {
++		String [] divisas = {"Dólar","Euro","Libra","Yen","Won-coreano","Peso argentino","Real"}; 
++		return divisas;
++	}
++	
++	public double[] getValores() {
++		double [] valores = {1.0,0.94,0.82,132.19,1306.19,203.35,5.27};
++		return valores;
++	}
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/InciarSistema.java b/eclipse-workspace/ConversorDivisas/src/InciarSistema.java
+new file mode 100644
+index 0000000..4898510
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/InciarSistema.java
+@@ -0,0 +1,10 @@
++
++public class InciarSistema {
++
++	public static void main(String[] args) {
++		SistemaInterno sistema = new SistemaInterno();
++		sistema.ingresarSistema();
++
++	}
++
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/Longitud.java b/eclipse-workspace/ConversorDivisas/src/Longitud.java
+new file mode 100644
+index 0000000..977f1ca
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Longitud.java
+@@ -0,0 +1,10 @@
++
++public class Longitud extends Unidad{
++
++	@Override
++	public double[] getValores() {
++		// TODO Auto-generated method stub
++		return null;
++	}
++
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/Pais.java b/eclipse-workspace/ConversorDivisas/src/Pais.java
+new file mode 100644
+index 0000000..a954a53
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Pais.java
+@@ -0,0 +1,19 @@
++public class Pais {
++	
++	private String nombrePais;
++	
++	public String [] getPaises() {
++		String [] paises = {"Argentina","Chile","Colombia","Perú","Brasil","Estados Unidos","España","Inglaterra","Japón","Corea"}; 
++		return paises;
++	}
++
++	public String getNombrePais() {
++		return nombrePais;
++	}
++
++	public void setNombrePais(String nombrePais) {
++		this.nombrePais = nombrePais;
++	}
++	
++	
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/SistemaInterno.java b/eclipse-workspace/ConversorDivisas/src/SistemaInterno.java
+new file mode 100644
+index 0000000..669f8bf
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/SistemaInterno.java
+@@ -0,0 +1,37 @@
++import javax.swing.JOptionPane;
++
++public class SistemaInterno {
++	
++	String clave;
++	
++	public void ingresarSistema() {
++		//creo las opciones a mostrar
++		Usuario u = new Usuario();
++		String[] usus = u.getUsuarios();
++		//muestro en una lista desplegable las opciones
++		Object opcion = JOptionPane.showInputDialog(null,"Selecciona un tipo de usuario", "Elegir",JOptionPane.QUESTION_MESSAGE,null,usus, usus[0]);
++		if(opcion == "Administrador") {
++			Administrador admin = new Administrador();
++			clave = JOptionPane.showInputDialog("Ingrese la clave de acceso");
++			autentica(admin);
++		}else if(opcion == "Cliente") {
++			Cliente cliente = new Cliente();
++			clave = JOptionPane.showInputDialog("Ingrese la clave de acceso");
++			autentica(cliente);
++		}
++	}
++	//autentica que inicie bien sesión
++	public boolean autentica(Autenticable usuario) {
++		boolean puedeIniciarSesion = usuario.iniciarSesion(clave);
++		if(puedeIniciarSesion) {
++			System.out.println("Login exitoso");
++			
++			ConvertirUnidad cd = new ConvertirUnidad();
++			cd.mostrarUnidades();
++			return true;
++		}else {
++			System.out.println("Error en login");
++			return false;
++		}
++	}
++}
+\ No newline at end of file
+diff --git a/eclipse-workspace/ConversorDivisas/src/Unidad.java b/eclipse-workspace/ConversorDivisas/src/Unidad.java
+new file mode 100644
+index 0000000..e9e4490
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Unidad.java
+@@ -0,0 +1,24 @@
++
++public abstract class Unidad {
++
++		private String nombre;
++		private double valor;
++
++		public String getNombre() {
++			return nombre;
++		}
++
++		public void setNombre(String nombre) {
++			this.nombre = nombre;
++		}
++
++		public double getValor() {
++			return valor;
++		}
++
++		public void setValor(double valor) {
++			this.valor = valor;
++		}
++		
++		public abstract double [] getValores();
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/Usuario.java b/eclipse-workspace/ConversorDivisas/src/Usuario.java
+new file mode 100644
+index 0000000..c66ccaf
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/Usuario.java
+@@ -0,0 +1,38 @@
++
++public class Usuario {
++
++		private String nombre;
++		private String documento;
++		private String clave; 
++		
++		public Usuario() {
++			
++		}
++		
++		public String getNombre() {
++			return nombre;
++		}
++		public void setNombre(String nombre) {
++			this.nombre = nombre;
++		}
++		public String getDocumento() {
++			return documento;
++		}
++		public void setDocumento(String documento) {
++			this.documento = documento;
++		}
++
++		public String getClave() {
++			return clave;
++		}
++
++		public void setClave(String clave) {
++			this.clave = clave;
++		}
++		
++		public String [] getUsuarios() {
++			String [] usuarios = {"Administrador","Cliente"};
++			return usuarios;
++		}
++
++}
+diff --git a/eclipse-workspace/ConversorDivisas/src/ValorDivisa.java b/eclipse-workspace/ConversorDivisas/src/ValorDivisa.java
+new file mode 100644
+index 0000000..5f92ee6
+--- /dev/null
++++ b/eclipse-workspace/ConversorDivisas/src/ValorDivisa.java
+@@ -0,0 +1,29 @@
++import java.util.Date;
++
++public class ValorDivisa {
++	
++	private Date fecha;
++	private double valor;
++	private Divisa divisa;
++	
++	public Date getFecha() {
++		return fecha;
++	}
++	public void setFecha(Date fecha) {
++		this.fecha = fecha;
++	}
++	public double getValor() {
++		return valor;
++	}
++	public void setValor(double valor) {
++		this.valor = valor;
++	}
++	public Divisa getDivisa() {
++		return divisa;
++	}
++	public void setMoneda(Divisa divisa) {
++		this.divisa = divisa;
++	}
++	
++	
++}
